@@ -35,20 +35,20 @@ OneNote loader (`.one`) with an embedded HTA payload carved out of the
 FileDataStoreObject, the dropped PowerShell download cradle, and the matching
 OneNote YARA rules:
 
-![OneNote loader analysis](docs/screenshots/onenote_loader.svg)
+![OneNote loader analysis](docs/screenshots/onenote_loader.png)
 
 A classic macro-era HTA dropper, scored Critical:
 
-![HTA dropper analysis](docs/screenshots/hta_dropper.svg)
+![HTA dropper analysis](docs/screenshots/hta_dropper.png)
 
 SVG smuggling: the C2 URL is hidden in a base64 `atob()` blob, decoded and
 extracted as an IOC:
 
-![SVG smuggling analysis](docs/screenshots/svg_smuggling.svg)
+![SVG smuggling analysis](docs/screenshots/svg_smuggling.png)
 
 A macro-less DDE/DDEAUTO docx with a remote template and tampered metadata:
 
-![DDE docx analysis](docs/screenshots/dde_docx.svg)
+![DDE docx analysis](docs/screenshots/dde_docx.png)
 
 ## Example reports
 
