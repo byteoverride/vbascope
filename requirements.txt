@@ -1,0 +1,13 @@
+# vbascope runtime dependencies
+# Install:  python3 -m pip install -r requirements.txt
+#       or: python3 vbascope.py --setup   (auto-installs, user-site first)
+
+oletools>=0.60            # olevba, oleid, mraptor, rtfobj, olefile  (core extraction)
+yara-python>=4.2          # YARA engine for the built-in + custom rulesets
+XLMMacroDeobfuscator>=0.2 # Excel 4.0 (XLM) macro emulation/deobfuscation
+pefile>=2023.2.7          # PE parsing for carved/embedded executables
+python-magic>=0.4.27      # libmagic bindings for content-based file typing
+rich>=13.0                # colored terminal reporting
+
+# Optional but recommended (enables encrypted-document handling):
+msoffcrypto-tool>=5.0     # decrypt password-protected OOXML/OLE (common maldoc trick)

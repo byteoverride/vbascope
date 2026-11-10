@@ -1,0 +1,25 @@
+# vbascope
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# analysis output
+vbascope_output/
+*.sandbox.txt
+
+# local env
+.venv/
+venv/
+.env
+
+# editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# keep docs/ (screenshots + example reports) tracked
+
+# internal build spec, not shipped
+instructions.txt

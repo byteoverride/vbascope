@@ -1,0 +1,393 @@
+{
+  "tool": "vbascope",
+  "version": "1.0.0",
+  "analyzed_at": "2026-11-10T23:35:30.314770+00:00",
+  "errors": [],
+  "file": {
+    "path": "/tmp/claude-1000/-home-byteoverride-Documents-Tools-vbascope/65eb8bd4-501d-4997-a2d6-b5f7496b734e/scratchpad/samples/note_lure.one",
+    "name": "note_lure.one",
+    "extension": ".one",
+    "file_type": "OneNote Section",
+    "ooxml_subtype": null,
+    "libmagic_mime": "application/onenote",
+    "libmagic_desc": "Microsoft OneNote",
+    "hashes": {
+      "md5": "02c2d1449a8ccbf7a78f0e1ce7b4ae80",
+      "sha1": "1ac45c9a9159c00370d78c8666e85b13f7e9459f",
+      "sha256": "7dd5a590245646d9354ebc7306d74c1bd73ca53a5fea66928fbd5803deecdfd4",
+      "size": 482,
+      "magic_bytes": "e4525c7b8cd8a74d"
+    },
+    "identification_notes": [
+      "OneNote section file - not subject to Mark-of-the-Web"
+    ]
+  },
+  "vba": {
+    "has_vba": false,
+    "module_count": 0,
+    "vba_stomping_detected": false,
+    "extraction_method": "none",
+    "modules": [],
+    "errors": []
+  },
+  "xlm": {
+    "has_xlm": false,
+    "formulas": [],
+    "dangerous_calls": [],
+    "timed_out": false,
+    "errors": []
+  },
+  "rtf": {
+    "object_count": 0,
+    "objects": [],
+    "errors": []
+  },
+  "metadata": {
+    "fields": {},
+    "template": null,
+    "flags": [],
+    "errors": []
+  },
+  "onenote": {
+    "applicable": true,
+    "payload_count": 1,
+    "payloads": [
+      {
+        "index": 0,
+        "offset": 252,
+        "size": 180,
+        "sniffed_type": "HTA application",
+        "is_pe": false,
+        "notes": [
+          "Embedded HTA application carved from OneNote FileDataStoreObject (double-click lure; OneNote bypasses Mark-of-the-Web)."
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "pdf": {
+    "applicable": false
+  },
+  "lnk": {
+    "applicable": false
+  },
+  "xll": {
+    "applicable": false
+  },
+  "static": {
+    "findings": [
+      {
+        "category": "execution",
+        "name": "WScript.Shell",
+        "severity": "high",
+        "mitre": "T1059.001/T1059.005",
+        "description": "Instantiates the Windows Script Host shell to run commands.",
+        "count": 6,
+        "examples": [
+          "et sh=CreateObject(\"WScript.Shell\") sh.Run \"powershel",
+          "=\"VBScript\"> Set sh=CreateObject(\"WScript.Shell\") sh.Run \"powershel"
+        ]
+      },
+      {
+        "category": "execution",
+        "name": "PowerShell invocation",
+        "severity": "critical",
+        "mitre": "T1059.001",
+        "description": "Spawns PowerShell - the dominant fileless execution vector.",
+        "count": 2,
+        "examples": [
+          "ipt.Shell\") sh.Run \"powershell -nop -w hidden -enc"
+        ]
+      },
+      {
+        "category": "execution",
+        "name": "PowerShell stealth flags",
+        "severity": "critical",
+        "mitre": "T1059.001/T1564",
+        "description": "Encoded/hidden PowerShell: -enc, -nop, -w hidden, -ep bypass.",
+        "count": 6,
+        "examples": [
+          "hell -nop -w hidden -enc AAAA http://onenote",
+          "sh.Run \"powershell -nop -w hidden -enc AAAA",
+          "un \"powershell -nop -w hidden -enc AAAA http://on"
+        ]
+      },
+      {
+        "category": "client",
+        "name": "Embedded <script> / DOM inject",
+        "severity": "high",
+        "mitre": "T1027.006/T1204.001",
+        "description": "Inline <script>, runtime script injection (createElementNS) or SVG <foreignObject> - markup-based code (SVG smuggling, HTA, HTML).",
+        "count": 2,
+        "examples": [
+          ":APPLICATION id=\"x\"><script language=\"VBScript\""
+        ]
+      }
+    ],
+    "autoexec_triggers": [],
+    "has_mz_embedded": false,
+    "has_dde": false,
+    "categories_hit": [
+      "client",
+      "execution"
+    ]
+  },
+  "obfuscation": {
+    "chr_count": 0,
+    "chr_heavy_modules": [],
+    "max_concat_chain": 0,
+    "concat_chain_count": 0,
+    "base64_blobs": 0,
+    "base64_decoded_pe": false,
+    "high_entropy_identifiers": 0,
+    "sample_gibberish": [],
+    "score": 0,
+    "indicators": []
+  },
+  "iocs": {
+    "urls": [
+      "http://onenote-c2.example.com/p.exe"
+    ],
+    "domains": [
+      "onenote-c2.example.com"
+    ],
+    "ips": [],
+    "emails": [],
+    "win_paths": [],
+    "unc_paths": [],
+    "registry_keys": [],
+    "defanged": {
+      "urls": [
+        "hxxp://onenote-c2[.]example[.]com/p[.]exe"
+      ],
+      "domains": [
+        "onenote-c2[.]example[.]com"
+      ],
+      "ips": [],
+      "emails": []
+    },
+    "total": 2
+  },
+  "yara": {
+    "available": true,
+    "match_count": 6,
+    "rules_loaded": 31,
+    "matches": [
+      {
+        "rule": "Maldoc_PowerShell_DownloadCradle",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "PowerShell download cradle (fileless payload fetch + run)",
+          "mitre": "T1059.001, T1105",
+          "severity": "critical"
+        },
+        "description": "PowerShell download cradle (fileless payload fetch + run)",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$ps",
+            "offset": 350,
+            "data": "powershell"
+          },
+          {
+            "identifier": "$enc",
+            "offset": 376,
+            "data": "-enc"
+          },
+          {
+            "identifier": "$hidden",
+            "offset": 369,
+            "data": "hidden"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_PowerShell_StealthFlags",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "PowerShell launched with stealth/evasion flags",
+          "mitre": "T1059.001, T1564",
+          "severity": "high"
+        },
+        "description": "PowerShell launched with stealth/evasion flags",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$f1",
+            "offset": 361,
+            "data": "-nop"
+          },
+          {
+            "identifier": "$f3",
+            "offset": 366,
+            "data": "-w hidden"
+          }
+        ]
+      },
+      {
+        "rule": "Maldoc_VBA_Shell_Execution",
+        "namespace": "builtin:default",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "VBA process execution primitives",
+          "mitre": "T1059",
+          "severity": "high"
+        },
+        "description": "VBA process execution primitives",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$s1",
+            "offset": 326,
+            "data": "WScript.Shell"
+          }
+        ]
+      },
+      {
+        "rule": "OneNote_Document",
+        "namespace": "builtin:modern_maldoc",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "Microsoft OneNote section file (.one) - MOTW/Protected-View bypass carrier",
+          "mitre": "T1204.002",
+          "reference": "MS-ONESTORE; blog.didierstevens.com/2023/01/22",
+          "severity": "info"
+        },
+        "description": "Microsoft OneNote section file (.one) - MOTW/Protected-View bypass carrier",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$hdr",
+            "offset": 0,
+            "data": "äR\\{Ø§M®±SxÐ)Ó"
+          }
+        ]
+      },
+      {
+        "rule": "OneNote_Embedded_File",
+        "namespace": "builtin:modern_maldoc",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "OneNote with an embedded FileDataStoreObject (dropped payload)",
+          "mitre": "T1027.006, T1204.002",
+          "reference": "isc.sans.edu/diary/29494 ; unit42 payload trends",
+          "severity": "high"
+        },
+        "description": "OneNote with an embedded FileDataStoreObject (dropped payload)",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$onenote",
+            "offset": 0,
+            "data": "äR\\{Ø§M®±SxÐ)Ó"
+          },
+          {
+            "identifier": "$fdso",
+            "offset": 216,
+            "data": "ç\u0016ã½e&\u0011E¤ÄM\u000bz¬"
+          }
+        ]
+      },
+      {
+        "rule": "OneNote_Embedded_Script_Or_PE",
+        "namespace": "builtin:modern_maldoc",
+        "tags": [],
+        "meta": {
+          "author": "vbascope",
+          "description": "OneNote carrying an embedded HTA/script/PE payload (double-click lure)",
+          "mitre": "T1059, T1204.002",
+          "reference": "crowdstrike QakBot OneNote; onedump.py",
+          "severity": "critical"
+        },
+        "description": "OneNote carrying an embedded HTA/script/PE payload (double-click lure)",
+        "source": "file",
+        "strings": [
+          {
+            "identifier": "$fdso",
+            "offset": 216,
+            "data": "ç\u0016ã½e&\u0011E¤ÄM\u000bz¬"
+          },
+          {
+            "identifier": "$hta",
+            "offset": 252,
+            "data": "<HTA:APPLICATION"
+          },
+          {
+            "identifier": "$ps",
+            "offset": 350,
+            "data": "powershell"
+          },
+          {
+            "identifier": "$vbs",
+            "offset": 312,
+            "data": "CreateObject("
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "risk": {
+    "score": 100,
+    "classification": "Critical",
+    "breakdown": [
+      {
+        "points": 15,
+        "reason": "Execution capability: WScript.Shell"
+      },
+      {
+        "points": 15,
+        "reason": "Execution capability: PowerShell invocation"
+      },
+      {
+        "points": 15,
+        "reason": "Execution capability: PowerShell stealth flags"
+      },
+      {
+        "points": 10,
+        "reason": "Client capability: Embedded <script> / DOM inject"
+      },
+      {
+        "points": 20,
+        "reason": "OneNote embedded payload(s): 1"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_PowerShell_DownloadCradle"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_PowerShell_StealthFlags"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: Maldoc_VBA_Shell_Execution"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: OneNote_Document"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: OneNote_Embedded_File"
+      },
+      {
+        "points": 10,
+        "reason": "YARA: OneNote_Embedded_Script_Or_PE"
+      }
+    ]
+  },
+  "next_steps": [
+    "Pivot the extracted URLs/domains in VirusTotal, URLhaus and your passive DNS. Pull the staged payload in an isolated VM, not on a host.",
+    "Decode the PowerShell: base64 -d the -enc blob, then deobfuscate the download cradle to recover the second-stage URL.",
+    "OneNote embedded payload(s): carve them with onedump.py (Didier Stevens), hash each dropped file and analyse separately. Watch for ONENOTE.EXE spawning MSHTA/powershell/cmd in a sandbox.",
+    "Cross-reference the SHA256 against MalwareBazaar / your internal corpus before writing it up - you may already have the family and C2."
+  ]
+}
